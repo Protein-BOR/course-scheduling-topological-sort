@@ -1,0 +1,112 @@
+# CS 3364 — Design and Analysis of Algorithms
+## Project 2: Course Scheduling Using Topological Ordering
+
+Team Members;Samir Chand, Prayatna Bhatta
+
+Programming LanguageJava
+
+### 1.Problem Interpretation
+
+Th objective of this project is to determine a valid order for complting the courses required in the ComputerScience undergaduate program. Many courses require students tocomplete other courses irst, creating prerequisiterelaionships
+
+We represent the couse requirements using a directed graph.Each course is a vertex, and each prerequisite relationshi is a directed edge. Fo examle, if CS 1411 is equired before CS 1412,thegrah contains an edge from CS 1411 to CS1412
+
+The goal is to apply a topological sorting algorithm based on DepthFirst Search (DFS) to produce acourse ordering in which all prerequisites are satified
+
+The supplied dataset consists of 29 courses and 30 prereqisite relationships.
+### 2.Methodology
+
+The program is implemented in Java using two classes: CourseGraph and Main.
+
+Graph Representation
+
+The CourseGraph class represents the directed graph usin an adjacency lit implemented with a LinkedHashMap. Each course is associated with a list of courses that depend on it.
+
+This representation allows efficient traversal and supports courses with multiple prerequisites.
+
+DepthFirst Search
+
+DFS is used to explore each course and its outgoing prerequisite relationships.
+
+Each vertex has one of three states:
+
+- Unvisited: The course has not yet been explored.
+- Visiting: The course is currently being explored.
+- Finished: The course and its descendants havebeen processed.
+
+When DFS finishes exploring a vertex, it adds that vertex to a finishing-order list.
+
+After all vertices have been processed, the list is reversed to generate the final topological ordering.
+
+Cycle Detection
+
+The algorithm also detects cycles. A cycle occurs when a course depends directly or indirectly on itself, making a valid topologica ordering impossible.
+If DFS encounters a vertex that is already in the visiting state, the program throws an exception indicating that a cycle exists.
+
+Verification
+
+The program verifies that the final ordering contains every couse exactly once and that every rerequisite appears before the course tat requires it.
+
+Time Complexity
+The algorithm has a time complexity of O(V + E), whre V is the number of courses and E is the number of prerequisite relationships.
+
+### 3.Exprimental Results
+
+The implementation was tested using the complete ourse dataset and two additional test graphs.
+
+Test1: Complete Course Dataset
+Input:
+- 29 courses
+- 30 directed prerequisite relationships
+
+Results from the tested implementation:
+- A tpological ordering containing all 29 courses was generated.
+- Ever prerequisite appeared before its dependent course.
+- The order-validation unction returned true.
+
+For example, CS 1411 appeared before CS 1412, and CS 1412 appeared before CS 2413. Simiarly, CS 3365 appeared before CS 4365, which appeared before CS 4366.
+
+Test 2: Simple Directed Acyclic Graph
+
+A small graph wa created using three vertices: A, B, and C.
+
+Its edges were A → B, B → C, and A → C.
+
+The program produced a valid topological order, nd the test returned true.
+
+Test 3: Graph Containing a Cycle
+
+A graph was creatd wit edges A → B, B → C, and C → A.
+
+The algorithm correctly identified the cycle and preented an invalid topoogical ordering.
+
+The cyledetection test returned true.
+
+These results demonstrate that the implementation generates a valid topological ordering fora directed acyclic graph and identifies invalid cyclic dependencies.
+
+### 4.Conclusion
+
+This project demonstrates how graph algorithms can solve realworld scheduling problems.
+
+By representing computer science courses as verticesand prerequisites as directed edges, the proram uses DFS-based topological sorting to determine a alid order for completing the course.
+
+The impleentation also verifies prerequisite relationships and detects cycles. The experimental results indicate that the algorithm correctly handles the supplied course dataset and the additional test cases.
+
+### 5.Future Improvements
+
+Possible future improvements include allowing users to enter their own courses and prerequisites,providing a graphical visualization of the course dependency graph, and generating semester-by-semester schedules based on course availability and credit-hour limits
+
+Another possible improvement would be adding a graphicalinterface to make the program easier for students to use.
+
+### 6. Team Member Contribution
+
+Member 1: Samir Chand
+
+Member 1 was responsible for setting up the Java project, creating the graph structure, and addig all 29 courses along ith their prerequisiterelationships. Tis included organizing the course data using an adjacency list and helping document the problem interpretation and methodology
+
+Member 2: Prayatna Bhatta
+Member 2 focused on implementing the Depth-First Search (DFS) algorithm and topological sorting functionality. This inclued verifyin that courses appeared in the correct order, checking for cycles in the graph, and documenting the experimental results and conclusions
+
+Team Collaboration
+
+Both team members worked together to complete the project, review the sourcecode, and verify the results.Wediscused the algorithm, tested different prerequisite relationships, and checked that the program generated a valid course ordeing. Wealso reviewed the final repot to ensur itaccurately explained our implementation and results
